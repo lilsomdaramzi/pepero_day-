@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0B0D12">
+<title>Special Delivery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@500;700&family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <button id="mute" class="icon-btn" aria-label="소리 켜기/끄기">
+    <svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/><path class="x" d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+
+  <!-- 0. 배달 드라이브 -->
+  <section id="s-drive" class="drive">
+    <canvas id="cvDrive"></canvas>
+    <div class="notif" id="notif">
+      <svg class="notif-ic" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#F28C28"/><path d="M9 15l11-6 11 6v12l-11 6-11-6z" fill="#FFE2B8"/><path d="M9 15l11 6 11-6M20 21v12" stroke="#B85E10" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M14.5 12l11 6" stroke="#B85E10" stroke-width="2"/></svg>
+      <div class="notif-body"><p class="notif-top"><b>DELIVERY</b><span>now</span></p><p id="notifText"></p></div>
+    </div>
+    <div class="drive-start" id="driveStart">
+      <svg class="box-ic" viewBox="0 0 40 40" aria-hidden="true"><path d="M5 13l15-8 15 8v16l-15 8-15-8z" fill="#FFE2B8"/><path d="M5 13l15 8 15-8M20 21v16" stroke="#B85E10" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M12 9l15 8" stroke="#B85E10" stroke-width="2"/></svg>
+      <p class="ds-title">INCOMING<br>DELIVERY</p>
+      <div class="ds-warn">
+        <svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="2.5" y="13" width="5" height="8" rx="2" fill="currentColor"/><rect x="16.5" y="13" width="5" height="8" rx="2" fill="currentColor"/></svg>
+        <p><b>Put your earphones in!</b><br>Music &amp; sound ahead. Turn off silent mode.</p>
+      </div>
+      <button class="ds-go" id="btnGo">START ▶</button>
+    </div>
+    <button class="skip" id="btnSkip" hidden>SKIP ›</button>
+  </section>
+
+  <!-- 인트로 -->
+  <section id="s-intro" class="screen" hidden>
+    <div class="intro">
+      <div class="float-hearts"><i></i><i></i><i></i><i></i><i></i></div>
+      <svg class="gift" viewBox="0 0 200 200" aria-hidden="true">
+        <ellipse cx="100" cy="186" rx="66" ry="8" fill="rgba(107,62,38,.15)"/>
+        <g transform="rotate(-9 78 70)"><rect x="70" y="24" width="13" height="80" rx="6" fill="#E3B27A"/><rect x="69" y="22" width="15" height="42" rx="7" fill="#6B3E26"/><circle cx="76" cy="34" r="2" fill="#FF8FB1"/><circle cx="78" cy="46" r="2" fill="#FFE066"/></g>
+        <g transform="rotate(4 100 70)"><rect x="94" y="14" width="13" height="90" rx="6" fill="#E3B27A"/><rect x="93" y="12" width="15" height="46" rx="7" fill="#F28DAE"/><path d="M96 24l9 4M96 36l9 4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></g>
+        <g transform="rotate(12 124 70)"><rect x="118" y="22" width="13" height="82" rx="6" fill="#E3B27A"/><rect x="117" y="20" width="15" height="40" rx="7" fill="#86AD5F"/><circle cx="124" cy="32" r="2.5" fill="#fff"/></g>
+        <rect x="38" y="88" width="124" height="96" rx="12" fill="#F05A71"/>
+        <rect x="38" y="88" width="124" height="14" fill="#D73D56"/>
+        <rect x="92" y="88" width="16" height="96" fill="#FFD23F"/>
+        <g transform="rotate(-14 30 80) translate(0 -18)">
+          <rect x="30" y="72" width="140" height="28" rx="9" fill="#FF8FA2"/>
+          <rect x="92" y="72" width="16" height="28" fill="#FFD23F"/>
+        </g>
+        <path d="M100 96c-14-22-40-20-30-2 5 8 20 6 30 2z M100 96c14-22 40-20 30-2-5 8-20 6-30 2z" fill="#FFC21A"/>
+        <circle cx="100" cy="96" r="7" fill="#FFD23F"/>
+        <path d="M70 140c0-6 9-6 9 0 0-6 9-6 9 0 0 7-9 11-9 13-0-2-9-6-9-13z" fill="#fff" opacity=".85"/>
+      </svg>
+      <p class="intro-to" id="introTo"></p>
+      <h1 id="introTitle"></h1>
+      <p class="intro-sub">Shake your phone and the magic begins</p>
+      <button class="btn primary big" id="btnStart">Open the box</button>
+      <div class="inapp" id="inapp" hidden>
+        <p>Opened inside KakaoTalk or Instagram?<br>Shaking and saving may not work here.</p>
+        <button class="btn small" id="btnExternal">Open in browser</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 흔들기 매직 -->
+  <section id="s-magic" class="screen" hidden>
+    <canvas id="cvDeco" class="deco"></canvas>
+    <div class="float-hearts magic-hearts" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <h2 class="magic-title" id="magicTitle"></h2>
+    <div class="stage"><canvas id="cvMagic"></canvas></div>
+    <div class="magic-foot">
+      <div class="shake-hint" id="shakeHint">
+        <svg class="phone" viewBox="0 0 40 60" aria-hidden="true"><rect x="6" y="2" width="28" height="56" rx="6" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="20" cy="50" r="2.5" fill="currentColor"/><path d="M0 18q-3 6 0 12M40 18q3 6 0 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+        <p id="hintText"></p>
+        <p class="hint">Can't shake? Just tap the screen</p>
+      </div>
+      <div class="tray" id="doneBar" hidden>
+        <div class="row"><button class="btn primary" id="btnShare">Share ↗</button><button class="btn" id="btnSave">Save image</button></div>
+        <div class="row"><button class="btn" id="btnLetter">Read letter</button><button class="btn" id="btnAgain">Play again</button></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- 사진 비 -->
+<canvas id="rain"></canvas>
+
+<!-- 편지 -->
+<div id="letter" class="modal" hidden>
+  <div class="card">
+    <p class="lt-to"></p>
+    <p class="lt-msg"></p>
+    <p class="lt-from"></p>
+    <button class="btn primary wide" id="cardClose">Close</button>
+  </div>
+</div>
+
+<!-- 저장 이미지 보기 -->
+<div id="imgView" class="modal" hidden>
+  <div class="sheet">
+    <img id="imgViewImg" alt="Your Pepero">
+    <p class="hint" id="imgViewHint"></p>
+    <div class="row"><button class="btn" id="imgViewCopy">Copy link</button><button class="btn primary" id="imgViewClose">Close</button></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+<canvas id="confetti"></canvas>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
